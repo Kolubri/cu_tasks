@@ -1,0 +1,73 @@
+#include <stdio.h>
+void qsort(int Default[],int left,int right);
+void swap(int Default[],int i,int j);
+void poisk(int Default[],const int size);
+int main() {
+    int number = 0;
+    const int size = 4;
+    // int Default[size] = {1,4,2,7,3,6,2,253,1,322};
+    int Default[size] = {};
+    printf("Нажмите 1, если хотите задать свой массив чисел, 0 - чтобы система задала свой массив\n");
+    scanf("%d", &number);
+    if (number == 1) {
+        printf("Введите массив данных через пробел\n");
+        for (int i = 0; i < size; ++i) {
+            scanf("%d", &Default[i]);
+        }
+    } else if (number == 0) {
+        int test =0;
+        for (int i = 0; i < size; ++i) {
+            Default[i] = ++test;
+           printf(" %d \n",Default[i]);
+        }
+    }
+    else if ( number!=0 && number!=1 )
+    {
+        printf("Введите либо 1 либо 0");
+      //  fclose(0);
+    }
+    poisk(Default,size);
+    return 0;
+}
+
+void poisk(int Default[],const int size) {
+    int min,max = 0, counter = 0;
+
+    for (int i = 0; i < size; ++i) {
+        if (Default[counter] < Default[i]) {
+            max = Default[i];
+            counter = i;
+        }
+    }
+    printf("Значение  %d является максимальным\n", max);
+
+    for (int i = 0; i < size; ++i) {
+        if (Default[counter] > Default[i]) {
+            min = Default[i];
+            counter = i;
+        }
+    }
+    printf("Значение  %d является минимальным", min);
+}
+void qsort(int Default[],int left,int right)
+{
+    int i,last;
+    void swap(int Default[],int i, int j);
+    if (left >= right)
+        return;
+    swap(Default, left, (left+right)/2);
+    last = left;
+    for(i = left+1; i<= right; i++)
+        if (Default[i] < Default[left])
+            swap(Default, ++last, i);
+    swap(Default, left,last);
+    qsort(Default,left,last-1);
+    qsort(Default, last+1, right);
+}
+void swap(int Default[],int i,int j)
+{
+ int temp;
+    temp = Default[i];
+    Default[i]=Default[j];
+    Default[j]=temp;
+}
